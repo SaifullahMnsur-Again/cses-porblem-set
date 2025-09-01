@@ -1,3 +1,4 @@
 .cph/
 .vscode/
 extract_and_cleanup.py
+*.exe
