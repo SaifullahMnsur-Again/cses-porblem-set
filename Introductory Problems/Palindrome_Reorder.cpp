@@ -1,0 +1,128 @@
+/*****************************
+File: Palindrome_Reorder.cpp
+Time & Date:
+20:10 (GMT+06:00)
+Tue, 02-Sep-2025
+
+Author:
+SAYFULLAH MONSUR SUJAN SARKAR
+4th year B.Sc. Engineering Student
+Department of Information and Communication Engineering
+University of Rajshahi, Bangladesh
+******************************/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/************ Selfmade Debugger ************/
+#ifdef SAIFULLAH
+    #include <smss/debug>
+#else
+    #define dbg(...)   991
+    #define line()     992
+    #define cendl()    993
+    #define cerr       if(false)cerr
+#endif
+
+time_t ms() {
+    return chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now().time_since_epoch()).count();
+}
+
+/******* Policy Based Data Structure *******/
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template <class T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <class T>
+using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+/***************** Typedefs ****************/
+typedef  long long                   ll;
+typedef  pair<int, int>              pint;
+typedef  pair<long long, long long>  pll;
+typedef  vector<int>                 vi;
+typedef  vector<long long>           vll;
+
+/******* Defines for long statements *******/
+#define  pb        push_back
+#define  ff        first
+#define  ss        second
+#define  yes       cout << "YES\n"
+#define  no        cout << "NO\n"
+#define  nai       cout << "-1\n"
+#define  nl        "\n"
+#define  all(x)    x.begin(), x.end()
+#define  allr(x)   x.rbegin(), x.rend()
+
+/**** Disable Synchronization between C++ and C Standard Streams ****/
+#define  fastIO    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+/*** Graph Movement ***/
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
+
+/************* Constant Values *************/
+const int MOD = 1e9+7;
+const ll INF = 1e18+10;
+
+void solve(int tt) {
+    cerr << "Testcase: " << tt << "\n";
+    
+    string str;
+    cin >> str;
+
+    vector<int> freq(26);
+    for (char c : str) {
+        freq[c - 'A']++;
+    }
+
+    vector<int> odds;
+    for (int i = 0; i < 26; i++) {
+        if (freq[i] % 2 == 1) {
+            odds.push_back(i);
+        }
+        freq[i] /= 2;
+    }
+
+    if (odds.size() > 1) {
+        cout << "NO SOLUTION\n";
+        return;
+    }
+    
+    for (int i = 0; i < 26; i++) {
+        for (int j = 0; j < freq[i]; j++) {
+            cout << char('A' + i);
+        }
+    }
+
+    if (!odds.empty())
+        cout << char('A' + odds.front());
+
+    for (int i = 25; i >= 0; i--) {
+        for (int j = 0; j < freq[i]; j++) {
+            cout << char('A' + i);
+        }
+    }
+
+    return;
+}
+
+int32_t main(int32_t /*argc*/, char* /*argv*/[]) {
+    #ifdef SAIFULLAH
+        START_TIMER();
+    #else
+        fastIO;
+    #endif
+
+    int t = 1;
+    // cin >> t;
+    for( int i = 1 ; i <= t ; i++ )
+        solve(i);
+
+    #ifdef SAIFULLAH
+        STOP_TIMER();
+    #endif
+
+    return 0;
+}
